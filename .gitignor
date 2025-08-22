@@ -1,0 +1,7 @@
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.iso
+*.qcow2
+*.log
+inventory.ini
