@@ -1,0 +1,42 @@
+---
+- name : Install Docker on all VMs
+  hosts: docker_cluster
+  become: true
+
+  tasks:
+    - name: Installing dependencies
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+        state: present
+        update_cache: yes
+
+    - name: Add Docker GPG-key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repo
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Install Docker Engine
+      apt:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+        state: latest
+        update_cache: yes
+
+    - name: Chech Docker is running
+      service:
+        name: docker
+        state: started
+        enabled: yes
+

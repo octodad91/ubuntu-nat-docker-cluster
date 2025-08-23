@@ -60,6 +60,7 @@ resource "libvirt_volume" "docker_uvm" {
   pool           = "images"
   base_volume_id = libvirt_volume.ubuntu_base.id
   format         = "qcow2"
+  size           = 20 * 1024 * 1024 * 1024
 }
 
 output "vm_ips" {
